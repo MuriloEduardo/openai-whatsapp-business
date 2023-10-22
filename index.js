@@ -5,6 +5,8 @@ const { getExtractedInfos, sendMessageToWhatsApp } = require("./services/whatsap
 
 const app = express()
 
+app.use(express.json())
+
 const processWhatsAppBusinessMessages = async (data) => {
     const { text, from, to } = await getExtractedInfos(data)
 
