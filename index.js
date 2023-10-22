@@ -8,8 +8,10 @@ const app = express()
 app.use(express.json())
 
 const processWhatsAppBusinessMessages = async (message) => {
-    console.log('processWhatsAppBusinessMessages', message);
-    const data = JSON.parse(message.data.toString());
+    const decodedValue = atob(message.data);
+    console.log('decodedValue', decodedValue);
+    const data = JSON.parse(decodedValue);
+    console.log('data', data);
 
     const { text, from, to } = await getExtractedInfos(data)
 
