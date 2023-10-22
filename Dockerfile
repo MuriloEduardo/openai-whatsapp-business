@@ -8,6 +8,4 @@ RUN npm ci
 
 COPY . .
 
-EXPOSE $PORT
-
 CMD ["node", "index"]
