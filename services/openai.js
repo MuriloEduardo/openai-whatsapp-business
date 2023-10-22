@@ -1,4 +1,4 @@
-const { OPENAI_API_URL } = require("./utils/env");
+const { OPENAI_API_URL } = require("../utils/env");
 
 const getOpenAIResponse = async (message) => {
     try {

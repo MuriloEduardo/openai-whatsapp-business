@@ -1,4 +1,4 @@
-const { WHATSAPP_BUSINESS_API_URL } = require("./utils/env");
+const { WHATSAPP_BUSINESS_API_URL } = require("../utils/env");
 
 const sendMessageToWhatsApp = async (message) => {
     try {
