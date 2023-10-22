@@ -1,4 +1,4 @@
-const pubsub = require("./utils/pubsub");
+const { pubsub } = require("./utils/pubsub");
 const { getOpenAIResponse } = require("./services/openai");
 const { getExtractedInfos } = require("./services/whatsapp-business");
 
