@@ -7,11 +7,13 @@ const app = express()
 
 app.use(express.json())
 
-const processWhatsAppBusinessMessages = async (data) => {
+const processWhatsAppBusinessMessages = async (message) => {
+    const data = JSON.parse(message.data.toString());
+
     const { text, from, to } = await getExtractedInfos(data)
 
     if (!text || !text.length) {
-        console.error('No text to processWhatsAppBusinessMessages')
+        console.error('No text to process')
         return
     }
 
@@ -26,16 +28,14 @@ const processWhatsAppBusinessMessages = async (data) => {
 
 app.post('/receive-push', async (req, res) => {
     try {
-        const data = req.body
+        const { body } = req
+        const { message } = body
 
-        console.log('receive-push', data);
-
-        await processWhatsAppBusinessMessages(data)
+        await processWhatsAppBusinessMessages(message)
 
         res.sendStatus(200)
     } catch (error) {
-        console.error('receive-push error', error)
-
+        console.error('Receive push error', error)
         res.sendStatus(500)
     }
 })
