@@ -70,9 +70,9 @@ subscription.on('message', async (message) => {
 
             console.log('sendMessageToWhatsApp', sended);
         }
+
+        message.ack();
     } catch (error) {
         console.error('Error onmessage subscription', error);
     }
-
-    message.ack();
 });
