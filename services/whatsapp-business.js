@@ -1,28 +1,32 @@
 const { WHATSAPP_BUSINESS_API_URL } = require("../utils/env");
 
-const sendMessageToWhatsApp = async (message) => {
+const sendMessageToWhatsApp = async (text, from, to) => {
     try {
-        const whatsappResponse = await fetch(WHATSAPP_BUSINESS_API_URL, {
+        await fetch(`${WHATSAPP_BUSINESS_API_URL}/whatsapp-business/send`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                phone: process.env.WHATSAPP_PHONE_NUMBER,
-                text: message
-            })
+            body: JSON.stringify({ from, to, text })
         });
-
-        console.log(`Message sent: ${message}`, whatsappResponse);
     } catch (error) {
         console.error(error);
     }
 }
 
-const getExtractedInfos = async () => {
+const getExtractedInfos = async (content) => {
     try {
-        const extractedInfos = await fetch(`${WHATSAPP_BUSINESS_API_URL}/extract-infos`)
-        return extractedInfos
+        const response = await fetch(`${WHATSAPP_BUSINESS_API_URL}/whatsapp-business/extract-infos`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(content),
+        })
+
+        const infos = await response.json()
+
+        return infos
     } catch (error) {
         console.error('getExtractedInfos error', error)
     }

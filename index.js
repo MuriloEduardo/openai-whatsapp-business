@@ -7,27 +7,21 @@ const subscription = pubsub.subscription('whatsapp-business-messages-sub');
 subscription.on('message', async (message) => {
     try {
         const data = JSON.parse(message.data.toString());
-        const text = data.text;
 
-        console.log('text teste teste 123456', text);
-
-        const extractedInfos = await getExtractedInfos(text)
-
-        console.log('extractedInfos', extractedInfos);
+        const { text, from, to } = await getExtractedInfos(data)
 
         const aiChoices = await getOpenAIResponse(text)
 
         for (const choice of aiChoices) {
             const aiResponse = choice.message.content
 
-            const sended = await sendMessageToWhatsApp(aiResponse)
-
-            console.log('sendMessageToWhatsApp', sended);
+            await sendMessageToWhatsApp(aiResponse, from, to)
         }
 
         message.ack();
     } catch (error) {
-        console.error('Error onmessage subscription', error);
+        console.error('whatsapp-business-messages-sub error', error);
+
         message.nack();
     }
 });
