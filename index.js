@@ -28,5 +28,6 @@ subscription.on('message', async (message) => {
         message.ack();
     } catch (error) {
         console.error('Error onmessage subscription', error);
+        message.nack();
     }
 });
