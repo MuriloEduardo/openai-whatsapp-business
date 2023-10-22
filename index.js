@@ -9,8 +9,7 @@ const processWhatsAppBusinessMessages = async (data) => {
     const { text, from, to } = await getExtractedInfos(data)
 
     if (!text || !text.length) {
-        console.error('No text found')
-        message.ack()
+        console.error('No text to processWhatsAppBusinessMessages')
         return
     }
 
