@@ -8,6 +8,6 @@ RUN npm ci
 
 COPY . .
 
-EXPOSE $PORT
+EXPOSE 8080
 
 CMD ["node", "index"]
