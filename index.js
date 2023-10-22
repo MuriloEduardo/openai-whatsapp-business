@@ -1,6 +1,6 @@
 const pubsub = require("./utils/pubsub");
 
-const subscription = pubsub.subscription('my-subscription');
+const subscription = pubsub.subscription('whatsapp-business-messages-sub');
 
 const getOpenAIResponse = async (message) => {
     try {
@@ -44,6 +44,8 @@ subscription.on('message', async (message) => {
     try {
         const data = JSON.parse(message.data.toString());
         const text = data.text;
+
+        console.log('text teste teste 123456', text);
 
         const aiChoices = await getOpenAIResponse(text)
 
