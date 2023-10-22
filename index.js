@@ -10,6 +10,12 @@ subscription.on('message', async (message) => {
 
         const { text, from, to } = await getExtractedInfos(data)
 
+        if (!text || !text.length) {
+            console.error('No text found');
+            message.ack();
+            return
+        }
+
         const aiChoices = await getOpenAIResponse(text)
 
         for (const choice of aiChoices) {
