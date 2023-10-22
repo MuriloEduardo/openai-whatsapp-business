@@ -1,10 +1,13 @@
-const { pubsub } = require("./utils/pubsub");
+// const { pubsub } = require("./utils/pubsub");
 const { getOpenAIResponse } = require("./services/openai");
 const { getExtractedInfos, sendMessageToWhatsApp } = require("./services/whatsapp-business");
 
-const subscription = pubsub.subscription('whatsapp-business-messages-sub');
+// const subscription = pubsub.subscription('whatsapp-business-messages-sub');
 
-subscription.on('message', async (message) => {
+// subscription.on('message', async (message) => {
+// });
+
+(async () => {
     try {
         const data = JSON.parse(message.data.toString());
         const text = data.text;
@@ -29,4 +32,4 @@ subscription.on('message', async (message) => {
     } catch (error) {
         console.error('Error onmessage subscription', error);
     }
-});
+})();
