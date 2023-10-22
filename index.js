@@ -28,7 +28,7 @@ app.post('/receive-push', async (req, res) => {
 
         console.log('receive-push', data);
 
-        processWhatsAppBusinessMessages(data)
+        await processWhatsAppBusinessMessages(data)
 
         res.sendStatus(200)
     } catch (error) {
